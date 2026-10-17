@@ -1,15 +1,15 @@
 /* Miki Dalit — personal portfolio
-   Light, warm, minimal. No build step: plain CSS, linked relatively. */
+   Nightmode, Courier everywhere. No build step: plain CSS, linked relatively. */
 
 :root {
-  --bg: #faf6ef;
-  --card: #fffdf8;
-  --ink: #2d2620;
-  --muted: #7d7263;
-  --accent: #bc5a28;          /* terracotta */
-  --accent-dark: #9c4519;
-  --accent-soft: #f7e7d5;
-  --border: #e9ddc8;
+  --bg: #131110;
+  --card: #1d1915;
+  --ink: #ece4d4;
+  --muted: #a79b84;
+  --accent: #e08a4c;          /* terracotta, brightened for dark bg */
+  --accent-dark: #f2ab72;
+  --accent-soft: #2b2118;
+  --border: #3a322a;
   --radius: 14px;
 }
 
@@ -19,14 +19,13 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
-               "Helvetica Neue", Arial, sans-serif;
+  font-family: "Courier New", Courier, monospace;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Courier New", Courier, monospace;
   line-height: 1.25;
   letter-spacing: 0.01em;
 }
@@ -45,7 +44,7 @@ a:hover { color: var(--accent-dark); }
 }
 
 .brand {
-  font-family: Georgia, serif;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.25rem;
   font-weight: bold;
   color: var(--ink);
@@ -211,7 +210,7 @@ pre {
   overflow-x: auto;
   font-size: 0.9rem;
 }
-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+code { font-family: "Courier New", Courier, monospace; }
 .katex-display { margin: 1.25rem 0; overflow-x: auto; overflow-y: hidden; }
 
 /* ---------- project page ---------- */
