@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muse AI Gadget Assistant — Mooni — Miki Dalit</title>
+  <meta name="description" content="A physical AI assistant: Arduino Uno Q + LCD running the Muse gadget SDK, with an offline Python ephemeris core.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../index.html">Miki Dalit</a>
+  <nav>
+    <a href="../index.html#projects">Projects</a>
+    <a href="../resume.pdf" download>Resume</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="project">
+  <p class="crumb"><a href="../index.html">← Home</a></p>
+  <h1>Muse AI Gadget Assistant — Mooni</h1>
+
+  <div class="callout">
+    <span class="callout-icon">🌙</span>
+    <div>
+      <p>This project is my attempt at building a physical AI assistant: a physical Mooni. Mooni is my everyday agent from Meta's Muse. The idea is simple: take the Muse gadget SDK, put it on an Arduino Uno Q with an LCD, and give him a face and a voice on my desk. Hosted on the Uno Q to integrate ephemeris</p>
+    </div>
+  </div>
+
+  <h2>Hardware Integration</h2>
+
+  <table>
+    <thead>
+      <tr><th>Interface</th><th>Item</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>MIPI DSI</td><td>LCD</td><td>Mooni's face — display output</td></tr>
+      <tr><td>Audio in / out headers</td><td>Mic + speaker</td><td>Push-to-talk voice</td></tr>
+      <tr><td>Onboard BLE 5.1</td><td>Bluetooth</td><td>Gadget pairing with the Muse app</td></tr>
+      <tr><td>Onboard Wi-Fi</td><td>Network</td><td>Cloud interpretation layer</td></tr>
+      <tr><td>QRB2210 (Debian)</td><td>MPU / Linux side</td><td>Hosts the gadget SDK, runs Python ephemeris</td></tr>
+      <tr><td>STM32U585 (Zephyr)</td><td>MCU side</td><td>Real-time I/O, talks to Linux via Bridge</td></tr>
+      <tr><td>3D printed shell</td><td>Mooni figurine (custom STL)</td><td>Enclosure — hollow, ~2.5mm walls</td></tr>
+    </tbody>
+  </table>
+
+  <p>The Uno Q is really two computers in one: a Qualcomm QRB2210 running full Debian Linux, and an STM32U585 running Zephyr for real-time I/O. Python on the Linux side talks to Arduino code through Bridge. The Muse gadget SDK installs on the Debian side and gives four powers: run shell commands, read files, write files, and check device health.</p>
+
+  <h2>The Logic &amp; Calculation Framework</h2>
+
+  <p>Two layers:</p>
+  <p><strong>Almanac (no Mooni needed).</strong> All the sky math runs on the Uno Q itself — a Python ephemeris computing positions, transits, and moon phases. Works offline, forever, no pairing, no internet. That's the reliable core, and it's a complete device on its own.</p>
+  <p>Brandon Rhodes' ephem library is the engine behind the almanac layer.</p>
+  <p><strong>Mooni (Muse SDK).</strong> The conversation. Positions go up through the gadget pairing, get interpreted, and come back out the LCD and speaker. The magic layer.</p>
+  <p>The data flow, end to end:</p>
+
+  <pre><code>graph TD
+  Arduino Uno Q  --&gt; (Ephem lib on Debian side)</code></pre>
+
+  <div class="callout">
+    <span class="callout-icon">⚙</span>
+    <div>
+      <p>The loop circuit-breaker lives in the dumb local layer on purpose. A boundary enforced by simple code is a lot harder to argue with at 3am than one enforced by AI.</p>
+    </div>
+  </div>
+
+  <h2>Build Status</h2>
+
+  <div class="callout">
+    <span class="callout-icon">🛠</span>
+    <div>
+      <p>Where things stand: the SDK requirements are verified against the Uno Q line by line (Debian 11+, 64-bit ARM, BLE 5.1, sudo account) and the install steps are confirmed — SSH in, run the installer with an SDK token from gadgets.muse.ai, pair as MuseGadgetXXXXXX in the app with Developer mode on. The Mooni figurine STL is modeled and hollowed.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p><a href="../index.html">← Back to all projects</a></p>
+  <p class="fine">© 2026 Miki Dalit</p>
+</footer>
+
+</body>
+</html>
