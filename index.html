@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miki Dalit — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Miki Dalit: thermodynamics, embedded systems, and automation projects.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html">Miki Dalit</a>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="resume.pdf" download>Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="hero-kicker">Hello, I'm</p>
+    <h1>Miki Dalit</h1>
+    <p class="tagline">Thermodynamics, embedded systems &amp; automation — built on ESP32s, Arduinos, and curiosity.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn" href="resume.pdf" download>Resume</a>
+      <a class="btn" href="#contact">Contact</a>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Hello, my name is Miki Dalit and I am currently a Mechanical Engineering Technology major from University of Houston. I have an interest in anything thermodynamically inclined, embedded systems, and automation. I intend on getting my FE and PE licenses once I get the required experience. In my free time, I like to hike, and also do writeups related to tech or random things on my Substack.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="card-grid">
+
+      <a class="card" href="projects/governed-fuel-cell.html">
+        <div class="card-emoji">🛠</div>
+        <h3>Governed Fuel Cell Project</h3>
+        <p>ESP32-based fuel-cell control system holding isothermal, steady-flow conditions with real-time temperature/humidity monitoring, fan-driven heat rejection, and dew-point-based condensate venting.</p>
+        <span class="card-link">Read more →</span>
+      </a>
+
+      <a class="card" href="projects/mooni-gadget.html">
+        <div class="card-emoji">🌙</div>
+        <h3>Muse AI Gadget Assistant — Mooni</h3>
+        <p>A physical AI assistant: Arduino Uno Q + LCD running the Muse gadget SDK, with an offline Python ephemeris as its always-on core.</p>
+        <span class="card-link">Read more →</span>
+      </a>
+
+      <a class="card" href="projects/fieldbus-thermal.html">
+        <div class="card-emoji">🌡</div>
+        <h3>Fieldbus Thermal Simulation w/ SPE Uplink</h3>
+        <p>IoT manufacturing simulation tying Modulino sensors together over SPE, with a first-law-of-thermodynamics "Simulated Load Index" risk metric.</p>
+        <span class="card-link">Read more →</span>
+      </a>
+
+      <a class="card" href="projects/mini-battery-cell.html">
+        <div class="card-emoji">🔋</div>
+        <span class="badge">On hold</span>
+        <h3>Mini Battery Cell Production</h3>
+        <p>Simulated battery-cell production line: precision jellyroll winding with linear web-speed quality checks and a PASS/FAIL diverter servo.</p>
+        <span class="card-link">Read more →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>Resume</h2>
+    <p>One page, the whole story: experience, skills, and projects.</p>
+    <a class="btn btn-primary" href="resume.pdf" download>Download resume (PDF)</a>
+  </section>
+</main>
+
+<footer id="contact" class="site-footer">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:mariamikaeladalit@gmail.com">mariamikaeladalit@gmail.com</a></p>
+  <p>LinkedIn: Miki Dalit</p>
+  <p class="fine">© 2026 Miki Dalit</p>
+</footer>
+
+</body>
+</html>
