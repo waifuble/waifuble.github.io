@@ -1,6 +1,6 @@
-# Miki's Personal Website :-)
+# Miki Dalit — Personal Website
 
-My static portfolio site. Plain HTML/CSS/JS only. Vibecoded on Muse. 
+Static portfolio site. Plain HTML/CSS/JS only — no build step, no frameworks.
 Push the contents of this folder straight to a GitHub repo and enable
 GitHub Pages (Settings → Pages → Deploy from branch) to go live.
 
