@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fieldbus Thermal Simulation w/ SPE Uplink — Miki Dalit</title>
+  <meta name="description" content="IoT manufacturing simulation with SPE uplink and a thermodynamics-based Simulated Load Index risk metric.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../index.html">Miki Dalit</a>
+  <nav>
+    <a href="../index.html#projects">Projects</a>
+    <a href="../resume.pdf" download>Resume</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="project">
+  <p class="crumb"><a href="../index.html">← Home</a></p>
+  <h1>Fieldbus Thermal Simulation w/ SPE Uplink</h1>
+
+  <div class="callout">
+    <span class="callout-icon">🌡</span>
+    <div>
+      <p>This project was made to create an understanding for myself on how to understand the use of SPE technology and implement it on a simple project. It explores the simulation of an IoT system for future manufacturing operations. Environmental and motion sensors detect whether or not a process is operating in the correct conditions, and uses a metric based off of the 1st Law of Thermodynamics.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">🌡</span>
+    <div>
+      <p>I try to utilize the terminology and knowledge I have learned used in building automation systems and controls in this project.</p>
+    </div>
+  </div>
+
+  <h2>Hardware Integration</h2>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Build photo coming soon
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>PIN</th><th>Item</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>D18 / D19 (SDA &amp; SCL)</td><td>Modulino Thermo + Modulino Movement</td><td>Slave Node #1 &amp; #2</td></tr>
+      <tr><td>N/A</td><td>Arduino</td><td>Master Aggregate</td></tr>
+      <tr><td>N/A</td><td>SPE Shield</td><td>Uplink</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Logic &amp; Calculation Framework</h2>
+
+  <p>The values received from the Modulino Thermo are Celsius (T), and relative humidity (rH). For Movement, you get acceleration values on x,y,z (g) and angular rotation on x,y,z (dps). I wanted to create a consolidated risk metric that takes utilizes these values and determines whether the system is at risk.</p>
+
+  <p>Taking into consideration the 1st Law of Thermodynamics:</p>
+
+  <div class="callout">
+    <span class="callout-icon">🌡</span>
+    <div>
+      \[ \Delta E = \Delta U + \Delta KE + \Delta PE \]
+    </div>
+  </div>
+
+  <h3>SLI = Simulated (Thermal) Load Index</h3>
+
+  \[ SLI = k \cdot (\omega)^2 \cdot (g_{net})^2 \cdot (T_{offset}) \]
+
+  <p>For machine monitoring, I am using the mechanical movement used from the values of the Modulino Movement for delta KE, and the Modulino Thermo temperature values for delta U for internal energy. The issue with this equation is that it is not dimensionally accurate, which is why there is a proxy, dimension-less k value. I am trying to put the total value as Watts, so below is how I derived this to be dimensionally accurate.</p>
+
+  <h3>Dimensional Analysis of the SLI:</h3>
+  <ul>
+    <li>include k * w^2 * gnet^2 * Toffset equation</li>
+  </ul>
+
+  \[ 1\,W = 1 \frac{(kg \cdot m)}{s^3} = [mass]^2[length]^2[time]^{-3} \]
+
+  \[ SLI = 0 \cdot ([T]^{-1})^{-2} \cdot ([L][T]^{-2})^2 \cdot 0 \]
+
+</main>
+
+<footer class="site-footer">
+  <p><a href="../index.html">← Back to all projects</a></p>
+  <p class="fine">© 2026 Miki Dalit</p>
+</footer>
+
+</body>
+</html>
