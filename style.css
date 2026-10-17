@@ -70,6 +70,14 @@ section { margin: 3.5rem 0; }
 
 /* ---------- hero ---------- */
 .hero { text-align: center; padding: 3rem 0 1rem; }
+.hero-photo {
+  width: 11rem;
+  height: 11rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  margin-bottom: 1.25rem;
+}
 .hero-kicker {
   color: var(--muted);
   margin: 0 0 0.25rem;
