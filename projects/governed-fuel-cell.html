@@ -34,10 +34,7 @@
 
   <h2>Hardware Integration</h2>
 
-  <div class="photo-placeholder">
-    <span class="ph-icon">📷</span>
-    Build photo coming soon
-  </div>
+  <img class="project-img" src="../images/fuel-cell-1.jpg" alt="ESP32 wiring diagram for the governed fuel cell system">
 
   <table>
     <thead>
@@ -69,10 +66,7 @@
   <h3>Enthalpy Management: Isothermal Heat Rejection</h3>
   <p>To prevent the fuel cell from overheating, the system relates Gibbs Free Energy to the change in enthalpy. The ESP32 calculates the required heat rejection (Qcalc, derived from Q above) to maintain an isothermal state. This value is then mapped to the Fan (DC Motor) speed, which acts as a dynamic heat sink to exhaust excess thermal energy generated during the electrochemical reaction.</p>
 
-  <div class="photo-placeholder">
-    <span class="ph-icon">📷</span>
-    Demo clip coming soon
-  </div>
+  <img class="project-img" src="../images/fuel-cell-demo.gif" alt="Fan heat-rejection demo">
 
   <div class="callout">
     <span class="callout-icon">⚙</span>
@@ -83,18 +77,12 @@
     </div>
   </div>
 
-  <div class="photo-placeholder">
-    <span class="ph-icon">📷</span>
-    Build photo coming soon
-  </div>
+  <img class="project-img" src="../images/fuel-cell-2.jpg" alt="Nomad 3D model of the PEMFC housing">
 
   <h3>General Environmental Management</h3>
   <p>Using the Magnus-Tetens approximation, the system calculates for dew point within the system as a way to measure condensate. This Tdp value is required for the entropy management. The constant values used are Sonntag estimates*</p>
 
-  <div class="photo-placeholder">
-    <span class="ph-icon">📷</span>
-    Build photo coming soon
-  </div>
+  <img class="project-img" src="../images/fuel-cell-3.jpg" alt="Dew-point calculation">
 
   <h3>Entropy Management: Water Byproduct Removal</h3>
   <p>The overall chemical reaction of the PEMFC (H2 + 1/2O2 -&gt; H2O) results in water condensate. If water builds up, it disrupts the steady-flow state and can "flood" the cathode.</p>
