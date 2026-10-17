@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Governed Fuel Cell Project — Miki Dalit</title>
+  <meta name="description" content="ESP32-based fuel-cell control system: isothermal steady-flow control via temperature/humidity monitoring, fan heat rejection, and dew-point condensate management.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../index.html">Miki Dalit</a>
+  <nav>
+    <a href="../index.html#projects">Projects</a>
+    <a href="../resume.pdf" download>Resume</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="project">
+  <p class="crumb"><a href="../index.html">← Home</a></p>
+  <h1>Governed Fuel Cell Project</h1>
+
+  <div class="callout">
+    <span class="callout-icon">🛠</span>
+    <div>
+      <p>A fuel cell system requires isothermal, steady-flow conditions in order to operate. This project is an attempt to simulate on maintaining these conditions through real-time temperature and humidity monitoring. The system actively manages enthalpy (heat rejection) and entropy (through byproduct drainage) to prevent flooding or overheating within the cell housing.</p>
+    </div>
+  </div>
+
+  <h2>Hardware Integration</h2>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Build photo coming soon
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>PIN</th><th>Item</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>13</td><td>Fan</td></tr>
+      <tr><td>18</td><td>Valve</td></tr>
+      <tr><td>19</td><td>Vent</td></tr>
+      <tr><td>21/22</td><td>Modulino Thermo + Modulino Movement</td></tr>
+    </tbody>
+  </table>
+
+  <p>The ESP32 serves as the central hub, utilizing I2C communication via SDA (Pin 21) and SCL (Pin 22). Thermo and Gyro modules are daisy-chained through QWIIC connectors. The system's physical response is handled through GPIO 13 driving the enthalpy-management fan, while GPIO 18 and GPIO 19 actuate the entropy-regulating servos for the valve and vent systems.</p>
+
+  <h2>The Logic &amp; Calculation Framework</h2>
+
+  \[ \Delta H = Q - W_e \]
+  \[ \Delta H + W_e = Q \]
+  \[ W_e = nFE \]
+  \[ \Delta H + nFE = Q \]
+
+  <p>If T &gt; 25 C, motor fan ON.</p>
+  <p>(Fan) PIN 13 = Qcalc</p>
+  <p>Since Q is a unit of energy, this Qcalc is then changed to a PWM value for the ESP32 by:</p>
+
+  \[ PWM_{Signal} = k \cdot (T_{measured} - T_{target}) \]
+
+  <h3>Enthalpy Management: Isothermal Heat Rejection</h3>
+  <p>To prevent the fuel cell from overheating, the system relates Gibbs Free Energy to the change in enthalpy. The ESP32 calculates the required heat rejection (Qcalc, derived from Q above) to maintain an isothermal state. This value is then mapped to the Fan (DC Motor) speed, which acts as a dynamic heat sink to exhaust excess thermal energy generated during the electrochemical reaction.</p>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Demo clip coming soon
+  </div>
+
+  <div class="callout">
+    <span class="callout-icon">⚙</span>
+    <div>
+      <p>The dummy PEMFC shows the "sandwich style" stack with the anodes and cathodes in gray in between the electrolyte (turquoise). There is a cutout for the fan servo at the top, and servos for vent on the bottom. The ESP32 is connected on the outside of the housing with wires attached to the Thermo module that sits directly ontop of the dummy PEMFC.</p>
+      <p>Realistically speaking, the PEMFC stack should be in a more cylindrical tank due to the high volumetric pressure that is produced from the PEMFC process. I don't have any experience in creating housing so the box is just a theoretical housing for the PEMFC stack.</p>
+      <p>All modeled on Nomad.</p>
+    </div>
+  </div>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Build photo coming soon
+  </div>
+
+  <h3>General Environmental Management</h3>
+  <p>Using the Magnus-Tetens approximation, the system calculates for dew point within the system as a way to measure condensate. This Tdp value is required for the entropy management. The constant values used are Sonntag estimates*</p>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Build photo coming soon
+  </div>
+
+  <h3>Entropy Management: Water Byproduct Removal</h3>
+  <p>The overall chemical reaction of the PEMFC (H2 + 1/2O2 -&gt; H2O) results in water condensate. If water builds up, it disrupts the steady-flow state and can "flood" the cathode.</p>
+  <p><strong>The Logic:</strong> If the measured temperature T &lt;= Tdp, the air is saturated and condensation is imminent.</p>
+  <p><strong>The Action:</strong> The ESP32 triggers a Servo-controlled valve to open, venting the system and removing liquid water to maintain the entropy balance.</p>
+
+  \[ \text{If DPS} \geq \text{T, open valve (PIN 18)} \]
+
+</main>
+
+<footer class="site-footer">
+  <p><a href="../index.html">← Back to all projects</a></p>
+  <p class="fine">© 2026 Miki Dalit</p>
+</footer>
+
+</body>
+</html>
