@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Battery Cell Production — Miki Dalit</title>
+  <meta name="description" content="Simulated battery-cell production line: jellyroll winding quality checks with a PASS/FAIL diverter servo.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../index.html">Miki Dalit</a>
+  <nav>
+    <a href="../index.html#projects">Projects</a>
+    <a href="../resume.pdf" download>Resume</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="project">
+  <p class="crumb"><a href="../index.html">← Home</a></p>
+  <span class="badge">On hold</span>
+  <h1>Mini Battery Cell Production</h1>
+
+  <div class="callout">
+    <span class="callout-icon">🔋</span>
+    <div>
+      <p>This project simulates the manufacturing process of a battery cell, focusing on the precision required for "jellyroll" winding. The system aims to replicate industrial standards by wrapping copper coils around a cylindrical base to act as an anode and cathode. By monitoring linear web speed and environmental conditions, the project determines the quality of each cell, using a diverter mechanism to sort them into "PASS" or "FAIL" categories based on uniform layering and manufacturing constraints.</p>
+      <p><strong>This project has been put on hold as I have been busy T_T</strong></p>
+    </div>
+  </div>
+
+  <p>The system centers around an ESP32 microcontroller acting as the primary logic controller, managing both sensor inputs and mechanical outputs.</p>
+
+  <div class="photo-placeholder">
+    <span class="ph-icon">📷</span>
+    Build photo coming soon
+  </div>
+
+  <h2>Hardware Integration</h2>
+
+  <table>
+    <thead>
+      <tr><th>PIN</th><th>Item</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>N/A</td><td>ESP32 Microcontroller</td></tr>
+      <tr><td>GPIO 22/21</td><td>Modulino Movement/Thermo</td></tr>
+      <tr><td>GPIO 18</td><td>Servo Motor (Diverter)</td></tr>
+      <tr><td>GPIO 19</td><td>Servo Winding</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Logic &amp; Calculation Framework</h2>
+
+  <p>The project's success relies on maintaining a uniform membrane layer through the calculation of linear web speed and environmental stability. If the linear web speed is too high, spillage can occur during the windage process. Both processes act as quality check processes. The variables utilized from the Thermo modules are T &amp; rH, and from the Modulino is the dps.</p>
+
+  <h3>Quality Metric 1: Linear Web Speed</h3>
+  <p>To ensure the membrane is not wrapped too tightly or loosely, the system calculates the speed relative to the increasing diameter of the coil:</p>
+
+  \[ LWS = \frac{dps \cdot \pi \cdot D}{360} \]
+
+  <p>If the calculated speed deviates from the target V_target, or if the tension becomes non-uniform, the cell is flagged.</p>
+
+  <h3>Quality Metric 2: Environmental Check</h3>
+  <p>The system uses the Modulino sensor to monitor <strong>Relative Humidity (RH)</strong>. High humidity can compromise the integrity of the materials or the "checks" during the winding process.</p>
+
+  \[ Tdew = T - \frac{100 - rH}{5} \]
+
+  \[ \text{IF } (V_{web} \approx V_{target}) \text{ AND } (RH < RH_{max}) : \text{PASS (Servo actuates to "Success" lane)} \]
+  \[ \text{IF } (V_{web} \neq V_{target}) \text{ OR } (RH \ge RH_{max}) : \text{FAIL (Servo actuates to "Diverter" lane)} \]
+
+  <h3>Something extra</h3>
+  <p>Below is my calculation of the general pull-ups for this project. I noticed in my reading of making systems this was a step used in order to not fry their boards. This is unnecessary for my hobby project, but included in here incase anyone is curious.</p>
+
+</main>
+
+<footer class="site-footer">
+  <p><a href="../index.html">← Back to all projects</a></p>
+  <p class="fine">© 2026 Miki Dalit</p>
+</footer>
+
+</body>
+</html>
